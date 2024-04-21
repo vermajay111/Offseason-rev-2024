@@ -14,25 +14,21 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Autonomous(name = "TestAuto")
 public class BlueBack_Auto extends LinearOpMode {
-
     @Override
     public void runOpMode() throws InterruptedException {
         Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        telemetry.addLine("Left Spike");
-        TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(new Pose2d())
-                .splineToSplineHeading(new Pose2d(38, 45, Math.toRadians(180)), Math.toRadians(0))
-                .strafeLeft(10)
-                .lineToSplineHeading(new Pose2d(0, 0, Math.toRadians(90)))
-                .turn(Math.toRadians(-90))
-                .splineToSplineHeading(new Pose2d(38, -45, Math.toRadians(180)), Math.toRadians(0))
-                .strafeRight(10)
-                .lineToSplineHeading(new Pose2d(0, 0, Math.toRadians(0)))
-                .lineToSplineHeading(new Pose2d(56, 0, Math.toRadians(180)))
-                .lineToSplineHeading(new Pose2d(0, 0, 12.56))
-                //.splineToSplineHeading(new Pose2d(65, 55), Math.toRadians(720))
-                //.forward(-10)
-                //.splineTo(new Vector2d(30, 30), 360)
+
+        Pose2d startPose = new Pose2d(-50, 38, Math.toRadians(0.00));
+        drive.setPoseEstimate(startPose);
+        TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
+                .strafeTo(new Vector2d(-30, 0))
+                .lineTo(new Vector2d(10, 0))
+                .strafeTo(new Vector2d(50, 60))
+                .strafeTo(new Vector2d(10, 0))
+                .strafeTo(new Vector2d(50, -53))
+                .lineTo(new Vector2d(-50, -53))
+                .strafeTo(new Vector2d(-50, 38))
                 .build();
 
         drive.followTrajectorySequence(trajSeq);
@@ -42,6 +38,8 @@ public class BlueBack_Auto extends LinearOpMode {
 
         drive.followTrajectorySequence(trajSeq);
         Pose2d poseEstimate = drive.getPoseEstimate();
+        telemetry.update();
+
         while (!isStopRequested() && opModeIsActive()) ;
     }
 }

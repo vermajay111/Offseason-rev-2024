@@ -12,19 +12,16 @@ public class MeepMeepTesting {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(80, 40, Math.toRadians(150), Math.toRadians(150), 10.456)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(0, 0, Math.toRadians(0)))
-                                .splineToSplineHeading(new Pose2d(38, 45, Math.toRadians(180)), Math.toRadians(0))
-                                .strafeLeft(10)
-                                .lineToSplineHeading(new Pose2d(0, 0, Math.toRadians(90)))
-                                .turn(Math.toRadians(-90))
-                                .splineToSplineHeading(new Pose2d(38, -45, Math.toRadians(180)), Math.toRadians(0))
-                                .strafeRight(10)
-                                .lineToSplineHeading(new Pose2d(0, 0, Math.toRadians(0)))
-                                .lineToSplineHeading(new Pose2d(56, 0, Math.toRadians(180)))
-                                .lineToSplineHeading(new Pose2d(0, 0, 12.56))
+                        drive.trajectorySequenceBuilder(new Pose2d(-50, 38, Math.toRadians(0.00)))
+                                .strafeTo(new Vector2d(-30, 0))
+                                .lineTo(new Vector2d(10, 0))
+                                .strafeTo(new Vector2d(50, 60))
+                                .strafeTo(new Vector2d(10, 0))
+                                .strafeTo(new Vector2d(50, -53))
+                                .lineTo(new Vector2d(-50, -53))
+                                .strafeTo(new Vector2d(-50, 38))
                                 .build()
                 );
-
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
