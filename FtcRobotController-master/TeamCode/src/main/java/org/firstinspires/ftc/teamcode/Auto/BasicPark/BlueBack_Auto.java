@@ -19,17 +19,24 @@ public class BlueBack_Auto extends LinearOpMode {
         Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d startPose = new Pose2d(-50, 38, Math.toRadians(0.00));
+        Pose2d startPose = new Pose2d(-30, 55, Math.toRadians(0.00));
         drive.setPoseEstimate(startPose);
         TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
-                .strafeTo(new Vector2d(-30, 0))
+                .splineToConstantHeading(new Vector2d(50, -55), Math.toRadians(0))
+                .strafeTo(new Vector2d(50, 40))
+                .splineToConstantHeading(new Vector2d(-34, -55), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(-37, 55), Math.toRadians(0))
+                .build();
+
+        /*
+                        .strafeTo(new Vector2d(-30, 0))
                 .lineTo(new Vector2d(10, 0))
                 .strafeTo(new Vector2d(50, 60))
                 .strafeTo(new Vector2d(10, 0))
                 .strafeTo(new Vector2d(50, -53))
                 .lineTo(new Vector2d(-50, -53))
                 .strafeTo(new Vector2d(-50, 38))
-                .build();
+         */
 
         drive.followTrajectorySequence(trajSeq);
         requestOpModeStop();

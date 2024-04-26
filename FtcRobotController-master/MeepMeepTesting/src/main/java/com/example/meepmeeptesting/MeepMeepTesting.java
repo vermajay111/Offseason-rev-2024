@@ -10,16 +10,13 @@ public class MeepMeepTesting {
         MeepMeep meepMeep = new MeepMeep(800);
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(80, 40, Math.toRadians(150), Math.toRadians(150), 10.456)
+                .setConstraints(40, 20, Math.toRadians(150), Math.toRadians(30), 10.456)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(-50, 38, Math.toRadians(0.00)))
-                                .strafeTo(new Vector2d(-30, 0))
-                                .lineTo(new Vector2d(10, 0))
-                                .strafeTo(new Vector2d(50, 60))
-                                .strafeTo(new Vector2d(10, 0))
-                                .strafeTo(new Vector2d(50, -53))
-                                .lineTo(new Vector2d(-50, -53))
-                                .strafeTo(new Vector2d(-50, 38))
+                        drive.trajectorySequenceBuilder(new Pose2d(-37, 55, Math.toRadians(0.00)))
+                                .splineToConstantHeading(new Vector2d(50, -55), Math.toRadians(0))
+                                .strafeTo(new Vector2d(50, 40))
+                                .splineToConstantHeading(new Vector2d(-34, -55), Math.toRadians(0))
+                                .splineToConstantHeading(new Vector2d(-37, 55), Math.toRadians(0))
                                 .build()
                 );
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
